@@ -9,7 +9,10 @@ let controller = {
         if (sucursal !== undefined) {
             let autos = getAutos.filter(auto => auto.sucursal === sucursalId)
 
-            res.send(autos)
+            res.render('sucursal', {
+                sucursal,
+                autos
+            })
             
         } else {
             res.send("No encontramos la solicitada")
