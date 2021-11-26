@@ -10,6 +10,12 @@ router.get('/sucursales', controller.sucursales)
 router.get('/agregarSucursal', controller.create)
 /* POST - Recibe data del formulario */
 router.post('/agregarSucursal', controller.store)
+/* GET - Formulario de edición (Sucursales) */
+router.get('/editarSucursal/:id', controller.edit)
+/* PUT - Edita sucursal */
+router.put('/editarSucursal/:id', controller.update)
+/* DELETE - Borra sucursal */
+router.delete('/eliminarSucursal/:id', controller.fatality)
 
 
 module.exports = router

@@ -38,6 +38,46 @@ let controller = {
         writeJson(getSucursales)
 
         res.redirect('/admin/sucursales')
+    },
+    edit: (req, res) => {
+        let idSucursal = +req.params.id;
+
+        let sucursal = getSucursales.find(sucursal => sucursal.id === idSucursal)
+
+        res.render('admin/editarSucursal', {
+            sucursal
+        })
+    },
+    update: (req, res) => {
+        let idSucursal = +req.params.id;
+        
+        const {nombre, direccion, telefono} = req.body;
+
+        getSucursales.forEach(sucursal => {
+            if(sucursal.id === idSucursal){
+                sucursal.id = sucursal.id,
+                sucursal.nombre = nombre,
+                sucursal.direccion = direccion,
+                sucursal.telefono = telefono,
+                sucursal.imagen = sucursal.imagen
+            }
+        })
+
+        writeJson(getSucursales)
+        res.redirect('/admin/sucursales')
+    },
+    fatality: (req, res) => {
+        let idSucursal = +req.params.id;
+
+        getSucursales.forEach(sucursal => {
+            if(sucursal.id === idSucursal){
+                let sucursalAEliminar = getSucursales.indexOf(sucursal)
+                getSucursales.splice(sucursalAEliminar, 1)
+            }
+        })
+
+        writeJson(getSucursales)
+        res.redirect('/admin/sucursales')
     } 
 
 }
