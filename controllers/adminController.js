@@ -1,4 +1,4 @@
-let {getAutos, getSucursales} = require('../data/dataBase')
+let {getAutos, getSucursales, writeJson} = require('../data/dataBase')
 
 
 let controller = {
@@ -17,7 +17,27 @@ let controller = {
         res.render('admin/agregarSucursal')
     },
     store: (req, res) => {
-        res.send(req.body)
+        let lastId = 1;
+
+        getSucursales.forEach(sucursal => {
+            if(sucursal.id > lastId){
+                lastId = sucursal.id
+            }
+        });
+
+        let nuevaSucursal = {
+            id: lastId + 1,
+            nombre: req.body.nombre,
+            direccion: req.body.direccion,
+            telefono: req.body.telefono,
+            imagen: "sucursal.jpg" 
+        }
+
+        getSucursales.push(nuevaSucursal);
+
+        writeJson(getSucursales)
+
+        res.redirect('/admin/sucursales')
     } 
 
 }
